@@ -92,7 +92,7 @@ export default async function CategoryPage({
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-            {articles.map((article) => (
+            {articles.map((article: typeof articles[number]) => (
               <ArticleCard key={article.id} article={article} variant="default" />
             ))}
           </div>
