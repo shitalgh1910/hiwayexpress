@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String?  @unique
+  passwordHash String
+  role         String   @default("admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  nameNepali  String?
+  slug        String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  articles    Article[]
+}
+
+model Article {
+  id          Int       @id @default(autoincrement())
+  title       String
+  slug        String    @unique
+  summary     String?
+  content     String
+  image       String?
+  categoryId  Int?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  author      String    @default("KP Ghimire")
+  status      String    @default("draft")
+  featured    Boolean   @default(false)
+  breaking    Boolean   @default(false)
+  views       Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  publishedAt DateTime?
+}
+
+model Media {
+  id         Int      @id @default(autoincrement())
+  filename   String
+  url        String
+  size       Int?
+  mimeType   String?
+  uploadedAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
