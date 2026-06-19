@@ -160,7 +160,7 @@ export default async function ArticlePage({
                 Related Articles
               </h3>
               <div className="space-y-4">
-                {relatedArticles.map((related) => (
+                {relatedArticles.map((related: typeof relatedArticles[number]) => (
                   <ArticleCard
                     key={related.id}
                     article={related}
